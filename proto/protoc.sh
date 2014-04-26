@@ -1,12 +1,22 @@
 #!/bin/bash
 
+export __dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+if [ "$#" -ne 2 ]
+then
+	echo "Usage: ${0} <type> <out_dir>"
+	echo "Types: python, java, cpp"
+	exit 1
+fi
+
 set -x
 
-export ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-export AMBER_DIR=${ROOT_DIR}/src/amber
-export COMMON_DIR=${AMBER_DIR}/common
+export __type=${1}
+export __out_dir=${2}
 
-protoc -I ${COMMON_DIR} --python_out=${COMMON_DIR} ${COMMON_DIR}/drivermsg.proto
-for pp in hokuyo ninedof roboclaw dummy; do
-    protoc -I ${COMMON_DIR} -I ${AMBER_DIR}/${pp} --python_out=${AMBER_DIR}/${pp} ${AMBER_DIR}/${pp}/${pp}.proto
+mkdir -p ${__out_dir}
+protoc -I ${__dir} --${__type}_out=${__out_dir} ${__dir}/drivermsg.proto
+for __module in $(ls ${__dir}/modules)
+do
+    protoc -I ${__dir} --${__type}_out=${__out_dir} ${__dir}/modules/${__module}
 done
