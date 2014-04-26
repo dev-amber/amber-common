@@ -9,6 +9,7 @@ enum DeviceType {
     ROBOCLAW = 2;
     STARGAZER = 3;
     HOKUYO = 4;
+    DUMMY = 5;
 }
 
 message DriverHdr {
@@ -19,11 +20,11 @@ message DriverHdr {
 
 message DriverMsg {
     enum MsgType {
-      DATA = 1;
-      PING = 2;
-      PONG = 3;
-      CLIENT_DIED = 4;
-      DRIVER_DIED = 5;
+        DATA = 1;
+        PING = 2;
+        PONG = 3;
+        CLIENT_DIED = 4;
+        DRIVER_DIED = 5;
     }
 
     required MsgType type     = 2;
