@@ -14,6 +14,8 @@ set -x
 export __type=${1}
 export __out_dir=${2}
 
+# FIXME: escape __type from user hacks!
+
 mkdir -p ${__out_dir}
 protoc -I ${__dir} --${__type}_out=${__out_dir} ${__dir}/drivermsg.proto
 for __module in $(ls ${__dir}/modules)
