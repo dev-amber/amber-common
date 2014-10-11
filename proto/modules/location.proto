@@ -12,4 +12,5 @@ extend amber.DriverMsg {
 message Location {
     optional double x = 1;
     optional double y = 2;
+    optional double p = 3;
 }
