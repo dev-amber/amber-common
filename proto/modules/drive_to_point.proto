@@ -5,13 +5,16 @@ option java_outer_classname = "DriveToPointProto";
 import "drivermsg.proto";
 
 extend amber.DriverMsg {
-    optional bool enable = 80;
-    optional Position target = 81;
-    optional bool check = 82;
+    optional bool setTargets = 80;
+    optional bool getNextTarget = 81;
+    optional bool getNextTargets = 82;
+    optional bool getVisitedTarget = 83;
+    optional bool getVisitedTargets = 84;
+    optional Targets targets = 85;
 }
 
-message Position {
-    optional double x = 1;
-    optional double y = 2;
-    optional double r = 3;
+message Targets {
+    repeated double longitudes = 1 [packed = true];
+    repeated double latitudes = 2 [packed = true];
+    repeated double radiuses = 3 [packed = true];
 }
